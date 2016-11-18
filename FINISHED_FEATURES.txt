@@ -1,0 +1,8 @@
+================================================================ 
+[TIME - 18/11/16]
+
+- Make a function at only returns captures groups in the array
+- Use KB's formula to get time diff.
+- Make convertion table etc for converting retrived values.
+- Activate notification sending.
+================================================================ 

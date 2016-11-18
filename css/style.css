@@ -1,0 +1,239 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800';
+
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+	text-decoration: none;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items:center;
+	justify-content:center;
+	font-family: 'Open Sans', sans-serif;
+	background: url(../images/bg.jpg) no-repeat center center;
+	-webkit-background-size: cover;
+	background-size: cover;
+}
+
+button , input {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.remind-me {
+	padding: 2em;
+	text-align: center;
+	background: #fff;
+	-webkit-box-shadow: 0 0px 150px rgba(255,255,255,.55);
+	box-shadow: 0 0px 150px rgba(255,255,255,.55);
+}
+
+
+.add-new-task-form {
+
+}
+
+.add-new-task-form > input {
+	height: 44px;
+	display: block;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.add-new-task-form > input {
+	margin-bottom: 10px;
+}
+
+.add-new-task-form > button {
+	cursor: pointer ;
+	font-size: 16px;
+	/*width: 100%;*/
+	width: 300px;
+	max-width: 300px;
+	padding: 0.5em 1em;
+	text-transform: uppercase;
+	color: #fff;
+	background: #000;
+	font-weight: bold;
+	outline: none;
+	border: 1px solid #000;
+	-webkit-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+}
+
+
+.add-new-task-form > button:hover,
+.add-new-task-form > button:focus,
+.add-new-task-form > button:active {
+	color: #000;
+	background: #fff;
+}
+
+.remind-me > header > h1 {
+	margin: 0;
+	font-size: 2em;
+	margin-bottom: 0.5em;
+}
+
+.remind-me-form >* {
+	margin-right: 0.5em;
+	margin-left: 0.5em;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.remind-me-form select {
+	height: 34px;
+	width: 100px;
+}
+
+input {
+	height: 34px;
+	width: 300px;
+	border: 1px solid #ccc;
+	padding-left: 10px;
+}
+
+input:focus {
+	border-color: #66afe9;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+	        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+	
+}
+
+.remind-me-form button {
+	background: #000;
+	border: 1px solid #000;
+	font-family: 'Open Sans', sans-serif;
+	color: #fff;
+	font-size: 1.2em;
+	padding: 0.15em 1em 0.2em;
+	cursor: pointer;
+	/*margin: 0;*/
+	-webkit-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+}
+
+.remind-me-form button:hover,
+.remind-me-form button:focus,
+.remind-me-form button:active {
+	background: #fff;
+	color: #000;
+}
+
+.add-new-task-btn {
+	display: inline-block;
+	background: #fb1515;
+	height: 1em;
+	font-size: 2em;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items:center;
+	justify-content:center;
+	color: #fff;
+	text-decoration: none;
+}
+
+.xdsoft_datetimepicker {
+	z-index: 99999999;
+}
+
+
+
+/*.new-task-form-popup {
+
+}*/
+
+
+.add-new-task-form ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #727272;
+}
+.add-new-task-form :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color: #727272;
+   opacity:  1;
+}
+.add-new-task-form ::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color: #727272;
+   opacity:  1;
+}
+.add-new-task-form :-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: #727272;
+}
+.add-new-task-form :placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+  color: #727272;
+}
+
+.remodal-close {
+	left: initial;
+	right: 0;
+} 
+
+.add-new-task-form h1 {
+	text-transform: uppercase;
+	font-size: 24px;
+	margin-top: 0;
+	margin-bottom: 0.5em;
+}
+
+.task-list-wrapper {
+	/*border: 1px solid #ccc;*/
+	margin-top: 30px;
+}
+
+.task-list-wrapper > .task-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.task-list-wrapper > .task-list > li {
+	position: relative;
+	text-align: left;
+	padding: 0.5em;
+	padding-left: 1.5em;
+	border-bottom: 1px solid #ccc;
+	font-size: 0.88em;
+}
+
+.task-list-wrapper > .task-list > li:after {
+	content: '\f192';
+	font-family: fontAwesome;
+	position: absolute;
+	z-index: 99;
+	top: 50%;
+	left: 0;
+	font-size: 14px;
+	color: #727272;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+@media only screen and (min-width: 641px) {
+	.new-task-form-popup {
+	    max-width: 450px;
+	}
+}
+
