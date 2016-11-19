@@ -1,3 +1,15 @@
+
+
+
+================================================================ 
+[TIME - 19/11/16]
+
+//- Plus button should have "wave" materrial effect.
+//- Add "TimeStamp" to task when added to the list. 
+//- Dates of only current month to End of month.
+//- Style Button to be in center and should have a popup and down animation of a boxshadow.
+================================================================ 
+
 ================================================================ 
 [TIME - 18/11/16]
 

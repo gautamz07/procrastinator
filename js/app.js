@@ -8,22 +8,18 @@ $(function() {
     	===============================================================================================
         - Use speed recognition for the "task" input feild
            - https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API 
-        - Plus button should have "wave" materrial effect.
-        - Add "TimeStamp" to task when added to the list. 
-        - Dates of only current month to End of month.
-        - Style Button to be in center and should have a popup and down animation of a boxshadow.
+        - Add a "Edit Task" and "Delete Task" Button.
         ================================================================================================
         
-        - Use localstorge 
+        // - Use localstorge 
         - Check Plugin which can help New users get a introduction to the Application
     	- Use https://github.com/T00rk/bootstrap-material-datetimepicker for timepicker.
-    	
     	     - on page load the a script should run to check localstorage and reshedule tasks.
-    	- Migrate loopig script from test.js , so that memory of setTimeout is not used but 
-    	  actually the 
-        - Add function that countdowns the time.   		     
+        - Add function that countdowns the time.   
+        - ADD Grunt and Node_modules. 
 
     FUTURE::-
+        - Use https://github.com/pazguille/voix for speech recognition or make own library.
         - Use Sound API for notifications.
     	- Add code to open in new tab when browser is opened. 
     	  I.E. The tab with the app opens and then also a tab with an empty tab.
@@ -151,6 +147,16 @@ $(function() {
     }
 
 
+    Date.prototype.monthDays = function(){
+
+        var date = new Date(this.getFullYear(), this.getMonth()+1, 0),
+        currentMonthLastDate = (date.getFullYear() + '/' + (date.getMonth()+ 1) + '/' +  date.getDate());
+        // console.log(date.getFullYear());
+        // console.log(date.getMonth()+ 1);
+        // console.log(date.getDate());
+
+        return currentMonthLastDate;
+    }
 
 
     $('.save-task').on('click', function() {
@@ -160,7 +166,8 @@ $(function() {
         objTaskDetails = {
             task : task 
         }
-        console.log(task);
+
+        // console.log(task);
         // dvar date = execOnlyCaptureGroups(/^(\d+)\/(\d+)\/(\d+)/g.exec(date_val)),
         var date = execOnlyCaptureGroups(/^(\d+)\/(\d+)\/(\d+) (\d+)\:(\d+)/g.exec(date_val)),
         timeDiffObj = differenceCurrentDateTime(date),
@@ -169,36 +176,35 @@ $(function() {
         // console.log(timeDiffObj);
         // console.log(diffInSecounds);
         objTaskDetails.notifyIn = diffInSecounds;
+        objTaskDetails.hoursMins = timeDiffObj
+        
+
         remindMeMain(objTaskDetails);
+        addToLocalStorage(objTaskDetails);
         // addToTaskList(objTaskDetails);
         return false;
 
     });
 
-    $('#datetimepicker').datetimepicker();
+    $('#datetimepicker').datetimepicker({
+        minDate: 0,
+        maxDate: new Date().monthDays()
+    });
 
     var localStroge_Procrastinator_tasks = $.parseJSON(localStorage.getItem('localStroge_Procrastinator_tasks')) || [];
 
-    $('.remind-me-form button').on('click keydown', function(e) {
-
-        if (e.which !== 13) {
-            return false;
-        }
-
-        e.preventDefault();
-        e.stopPropagation();
-
-        var $select = $('.remind-me-form > select'),
-            remindObj = {
-                time: $select.val(),
-                taskName: $select.siblings('input').val() || 'Just a Reminder !'
-            };
-
-        localStroge_Procrastinator_tasks.push(remindObj);
+    function addToLocalStorage(obj) {
+        localStroge_Procrastinator_tasks.push(obj);
         localStorage.setItem('localStroge_Procrastinator_tasks', JSON.stringify(localStroge_Procrastinator_tasks));
-        remindMeMain(remindObj);
-        // return false;	
-    });
+    }
+
+    function addLocalStorageTaskToTaskBoard() {
+        localStroge_Procrastinator_tasks.forEach(function(i,e){
+            remindMeMain(i);
+        })
+    }
+
+    addLocalStorageTaskToTaskBoard();
 
     /*function remindMeMain(remindObj) {
         setTimeout(function() {
@@ -210,22 +216,19 @@ $(function() {
         setTimeout(function() {
             sendNotification(objTaskDetails.task);
         }, objTaskDetails.notifyIn );
-
-        addToTaskList(objTaskDetails.task);
-
+        addToTaskList(objTaskDetails);
     }
 
 
-    function addToTaskList(task) {
-        if (task) {
-            $('<li>'+ task +'</li>').appendTo('.task-list-wrapper > .task-list');
+    function addToTaskList(obj) {
+        // consol
+        if (obj) {
+            $('.task-list-wrapper').addClass('visible');    
+            $('<li><span class="task-detail" title="'+  obj.task +'">'+ obj.task +'</span><span>'+ ((Math.floor(obj.hoursMins.hours / 24) > 0) ? Math.floor(obj.hoursMins.hours / 24) + 'd ' : '') + (obj.hoursMins.hours % 24) +':'+ obj.hoursMins.mins +'</span></li>').appendTo('.task-list-wrapper > .task-list');
         }
     }
 
     // addToTaskList();
-
-    
-
     // notification = window.Notification || window.mozNotification || window.webkitNotification;
 
     // function sendNotification(msg) {
@@ -249,6 +252,14 @@ $(function() {
             });
         }
     }
+
+    $('.wave-round-anim').click(function(){
+        $(this).addClass('active');
+        // return false;
+        setTimeout(function(){
+            $(this).removeClass('active');
+        }.bind(this),1000);
+    });
 
     // })();
 

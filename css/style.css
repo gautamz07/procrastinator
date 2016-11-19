@@ -44,6 +44,11 @@ button , input {
 	box-shadow: 0 0px 150px rgba(255,255,255,.55);
 }
 
+.remind-me > a {
+	margin-left:auto;
+	margin-right:auto;
+}
+
 
 .add-new-task-form {
 
@@ -88,7 +93,9 @@ button , input {
 
 .remind-me > header > h1 {
 	margin: 0;
-	font-size: 2em;
+	/*font-size: */
+	text-transform: uppercase;
+	font-size: 1.75em;
 	margin-bottom: 0.5em;
 }
 
@@ -142,7 +149,8 @@ input:focus {
 
 .add-new-task-btn {
 	display: inline-block;
-	background: #fb1515;
+	position: relative;
+	background: #4169e1;
 	height: 1em;
 	font-size: 2em;
 	border-radius: 50%;
@@ -153,7 +161,89 @@ input:focus {
 	justify-content:center;
 	color: #fff;
 	text-decoration: none;
+	-webkit-box-shadow: 0 0 5px rgba(0,0,0,.6);
+	box-shadow: 0 0 5px rgba(0,0,0,.6);
+	-webkit-animation-name: boxShadowAnim;
+	-o-animation-name: boxShadowAnim;
+	animation-name: boxShadowAnim;
+	-webkit-animation-duration: 0.75s;
+	-o-animation-duration: 0.75s;
+	animation-duration: 0.75s;
+	-webkit-animation-timing-function: linear;
+	-o-animation-timing-function: linear;
+	animation-timing-function: linear;
+	-webkit-animation-direction: alternate;
+	-o-animation-direction: alternate;
+	animation-direction: alternate;
+	/*animation-fill-mode: al;*/
+	-webkit-animation-iteration-count: infinite;
+	-o-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
 }
+
+.wave-round-anim:after {
+	content: '';
+	position: absolute;
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	-webkit-transition: all 2s;
+	-o-transition: all 2s;
+	transition: all 2s;
+	-webkit-transform-origin: 50% 50%;
+	-moz-transform-origin: 50% 50%;
+	-ms-transform-origin: 50% 50%;
+	-o-transform-origin: 50% 50%;
+	transform-origin: 50% 50%;
+	-webkit-transform: scale(0);
+	-ms-transform: scale(0);
+	-o-transform: scale(0);
+	transform: scale(0);
+	background: rgba(255,255,255,.25);
+	z-index: 99;
+}
+
+.wave-round-anim.active:after {
+	-webkit-animation-name: waveAnimation;
+	-o-animation-name: waveAnimation;
+	animation-name: waveAnimation;
+	-webkit-animation-duration: 0.45s;
+	-o-animation-duration: 0.45s;
+	animation-duration: 0.45s;
+	-webkit-animation-timing-function: ease-out;
+	-o-animation-timing-function: ease-out;
+	animation-timing-function: ease-out;
+}
+
+@keyframes waveAnimation {
+	0% {
+		-webkit-transform: scale(0);
+		-ms-transform: scale(0);
+		-o-transform: scale(0);
+		transform: scale(0);
+	}
+	100% {
+		-webkit-transform: scale(2);
+		-ms-transform: scale(2);
+		-o-transform: scale(2);
+		transform: scale(2);
+	}
+}
+
+
+@keyframes boxShadowAnim {
+	0% {
+		-webkit-box-shadow: 0 0 10px rgba(0,0,0,.6);
+		box-shadow: 0 0 10px rgba(0,0,0,.6);
+	}
+	100% {
+		-webkit-box-shadow: 0 0 0 rgba(0,0,0,0);
+		box-shadow: 0 0 0 rgba(0,0,0,0);
+	}
+}
+
 
 .xdsoft_datetimepicker {
 	z-index: 99999999;
@@ -165,6 +255,9 @@ input:focus {
 
 }*/
 
+/*.add-new-task-form > h1 {
+	text-transform: uppercase;
+}*/
 
 .add-new-task-form ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: #727272;
@@ -198,7 +291,12 @@ input:focus {
 
 .task-list-wrapper {
 	/*border: 1px solid #ccc;*/
+	display: none;
+}
+
+.task-list-wrapper.visible {
 	margin-top: 30px;
+	display: block;
 }
 
 .task-list-wrapper > .task-list {
@@ -214,6 +312,28 @@ input:focus {
 	padding-left: 1.5em;
 	border-bottom: 1px solid #ccc;
 	font-size: 0.88em;
+}
+
+.task-list-wrapper > .task-list > li > span.task-detail {
+	display: inline-block;
+	max-width: 165px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+} 
+
+.task-list-wrapper > .task-list > li:before,
+.task-list-wrapper > .task-list > li:after {
+  display: table;
+  content: " ";
+}
+
+.task-list-wrapper > .task-list > li:after {
+  clear: both;
+}
+
+.task-list-wrapper > .task-list > li > span:nth-of-type(2) {
+	float: right;
 }
 
 .task-list-wrapper > .task-list > li:after {
