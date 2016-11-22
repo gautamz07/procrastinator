@@ -19,7 +19,7 @@ $(function() {
         - ADD Grunt and Node_modules. 
 
     FUTURE::-
-        - Use https://github.com/pazguille/voix for speech recognition or make own library.
+        - Use https://github.com/pazguille/voix for speech recognition or Make own library.
         - Use Sound API for notifications.
     	- Add code to open in new tab when browser is opened. 
     	  I.E. The tab with the app opens and then also a tab with an empty tab.
