@@ -18,6 +18,12 @@ a:active {
 	text-decoration: none;
 }
 
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
 body {
 	padding: 0;
 	margin: 0;
@@ -299,6 +305,11 @@ input:focus {
 	display: block;
 }
 
+/*.task-list-wrapper.visible {
+	margin-top: 30px;
+	display: block;
+}
+
 .task-list-wrapper > .task-list {
 	list-style: none;
 	padding: 0;
@@ -330,13 +341,13 @@ input:focus {
 
 .task-list-wrapper > .task-list > li:after {
   clear: both;
-}
+}*/
 
-.task-list-wrapper > .task-list > li > a:nth-of-type(1) {
+/*.task-list-wrapper > .task-list > li > a:nth-of-type(1) {
 	float: right;
-}
+}*/
 
-.task-list-wrapper > .task-list > li:after {
+/* .task-list-wrapper > .task-list > li:after {
 	content: '\f192';
 	font-family: fontAwesome;
 	position: absolute;
@@ -349,13 +360,44 @@ input:focus {
 	-ms-transform: translateY(-50%);
 	-o-transform: translateY(-50%);
 	transform: translateY(-50%);
-}
+} */
 
 
 /* New Task list UI/UX */
 
-.task-list-wrapper > .task-list > li.indivisual-task-details > a {
+.task-list-wrapper > .task-list > li {
+	margin-bottom: 0.5em;
+	border-left: 5px solid #FFC803;
 	display: block;
+	-webkit-box-shadow: 0 0 5px rgba(0,0,0,.15);
+	box-shadow: 0 0 5px rgba(0,0,0,.15);
+}
+
+.task-list-wrapper > .task-list > li > a {
+	display: block;
+	padding: 0.5em 0.75em;
+	text-align: left;
+}
+
+.task-list-wrapper > .task-list > li > a > span {
+	display: block;
+	padding: 0 0 0.5em 0;
+	color: #212121;
+	font-weight: bold;
+}
+
+.task-list-wrapper > .task-list > li > a > span > i {
+	background: #ccc;
+	padding: 0.75em;
+	font-size: 0.8em;
+	border-radius: 50%;
+	/*color: #212121;*/
+	display: inline-block;
+}
+
+.task-list-wrapper > .task-list > li > a > time {
+	font-size: 0.81em;
+	color: #727272;
 }
 
 

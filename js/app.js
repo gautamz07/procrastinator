@@ -1,25 +1,45 @@
+(function() {
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var shortHand_days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    Date.prototype.getMonthName = function() {
+        return months[ this.getMonth() ];
+    };
+    Date.prototype.getDayName = function() {
+        return days[ this.getDay() ];
+    };
+    Date.prototype.getShortHandDayName = function() {
+        return shortHand_days[ this.getDay() ];
+    };
+})();
+
 $(function() {
 
     /* 
     BUGS :
        - e.which is not working :- isolate bug and check why. 
+       - [IMPORTANT]
 
     TODO::
     	===============================================================================================
-        - ADD a details task card just like on just reminder.
-        - On click of the details card, Task details should show up
-        - refactor code to have every() and see why forEach is not returning variable.
+        - WORK ON UI of Task details POPUP.
+        - ADD Grunt and Node_modules. 
+        //- ADD a details task card just like on just reminder.
+        //- refactor code to have every() and see why forEach is not returning variable.
         - Use speed recognition for the "task" input feild
            - https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API 
         - Add a "Edit Task" and "Delete Task" Button.
         ================================================================================================
         
         // - Use localstorge 
+        - use rain.js for background.
+            - http://maroslaw.github.io/rainyday.js/
         - Check Plugin which can help New users get a introduction to the Application
-    	- Use https://github.com/T00rk/bootstrap-material-datetimepicker for timepicker.
-    	     - on page load the a script should run to check localstorage and reshedule tasks.
+        - Use https://github.com/T00rk/bootstrap-material-datetimepicker for timepicker.
+             - on page load the a script should run to check localstorage and reshedule tasks.
         - Add function that countdowns the time.   
-        - ADD Grunt and Node_modules. 
 
     FUTURE::-
         - Use https://github.com/pazguille/voix for speech recognition or Make own library.
@@ -153,9 +173,6 @@ $(function() {
 
         var date = new Date(this.getFullYear(), this.getMonth()+1, 0),
         currentMonthLastDate = (date.getFullYear() + '/' + (date.getMonth()+ 1) + '/' +  date.getDate());
-        // console.log(date.getFullYear());
-        // console.log(date.getMonth()+ 1);
-        // console.log(date.getDate());
 
         return currentMonthLastDate;
     }
@@ -179,17 +196,12 @@ $(function() {
         diffInSecounds = (convertHoursToSecounds(timeDiffObj.hours) || 0) + (convertMinutesToSecounds(timeDiffObj.mins) || 0);
         
 
-
-        // console.log(only_Time);
-        // datetimeshowcase
-        // time = date_val.match(/\d+\:\d+/g);
-        // console.log(timeDiffObj);
-        // console.log(diffInSecounds);
         objTaskDetails.notifyIn = diffInSecounds;
         objTaskDetails.hoursMins = timeDiffObj
         objTaskDetails.dateTime = {
             date : only_Date,
-            time : only_Time
+            time : only_Time,
+            day : new Date(date.input).getShortHandDayName()  // is date.input reliable ?
         }
 
         console.log(objTaskDetails);
@@ -246,8 +258,10 @@ $(function() {
     function addToTaskList(obj) {
         // consol
         if (obj) {
-            $('.task-list-wrapper').addClass('visible');    
-            $('<li><span class="task-detail" title="'+  obj.task +'">'+ obj.task +'</span><a href="" data-task-id="'+ obj.task_Id +'" data-remodal-target="task-additional-details-popup">Task Details</a></li>').appendTo('.task-list-wrapper > .task-list');
+            $('.task-list-wrapper').addClass('visible');
+            console.log(obj);    
+            $('<li><a href="" data-remodal-target="task-additional-details-popup"><span><i class="fa fa-bullhorn"></i> ' + obj.task + '</span><time  datetime="'+ obj.dateTime.date +'"><i class="fa fa-clock-o"></i> '+ '(' + obj.dateTime.day + ') ' + obj.dateTime.date + ' | ' + obj.dateTime.time + '</time></a></li>').appendTo('.task-list-wrapper > .task-list');
+            // $('<li><span class="task-detail" title="'+  obj.task +'">'+ obj.task +'</span><a href="" data-task-id="'+ obj.task_Id +'" data-remodal-target="task-additional-details-popup">Task Details</a></li>').appendTo('.task-list-wrapper > .task-list');
         }
     }
 
