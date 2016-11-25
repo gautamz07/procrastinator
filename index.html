@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="css/jquery.datetimepicker.css">
         <link rel="stylesheet" href="css/remodal-default-theme.css">
         <link rel="stylesheet" href="css/remodal.css">
+        <link rel="stylesheet" href="css/TimeCircles.css">
         <!-- End Plugin scripts -->
         <link rel="stylesheet" href="css/style.css">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -33,11 +34,20 @@
             <header>
                 <h1>ADD a New Task</h1>
             </header><!-- /header -->
-            <a href="" data-remodal-target="modal" class="add-new-task-btn wave-round-anim">+</a>
+            <a href="" data-remodal-target="task-form-popup" class="add-new-task-btn wave-round-anim">+</a>
             <div class="task-list-wrapper">
                 <ul class="task-list">
                     <!-- <li>I am the 99%</li> -->
                     <!-- <li>I am the 99%</li> -->
+                    <li class="indivisual-task-details">
+                        <a href="#">
+                            <span>
+                                <i class="fa fa-bullhorn"></i>
+                                Lets Do It
+                            </span> 
+                            <time datetime="2011-01-12"><i class="fa fa-clock-o"></i> (Tue) 29/11/2016 | 15:38</time>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -45,7 +55,7 @@
         
 
         
-        <div class="remodal new-task-form-popup" data-remodal-id="modal">
+        <div class="remodal new-task-form-popup" data-remodal-id="task-form-popup">
           <button data-remodal-action="close" class="remodal-close"></button>
           <form action="" class="add-new-task-form">          
               <h1>Add A New Task</h1>
@@ -55,12 +65,22 @@
           </form>
         </div>
 
+        <div class="remodal task-additional-details-popup" data-remodal-id="task-additional-details-popup">
+          <button data-remodal-action="close" class="remodal-close"></button>
+          <div id="datetimeshowcase" width="500" height="500">
+
+          </div>
+        </div>
+
+
+
 
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
         <script src="js/jquery-1.11.0.min.js"></script>
         <!-- Plugins -->
         <script src="js/jquery.datetimepicker.full.min.js"></script>
         <script src="js/remodal.min.js"></script>
+        <script src="js/TimeCircles.js"></script>
         <!-- End One Page APP -->
         <script src="js/app.js"></script>
         <!-- <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script> -->

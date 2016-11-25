@@ -332,7 +332,7 @@ input:focus {
   clear: both;
 }
 
-.task-list-wrapper > .task-list > li > span:nth-of-type(2) {
+.task-list-wrapper > .task-list > li > a:nth-of-type(1) {
 	float: right;
 }
 
@@ -350,6 +350,32 @@ input:focus {
 	-o-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
+
+
+/* New Task list UI/UX */
+
+.task-list-wrapper > .task-list > li.indivisual-task-details > a {
+	display: block;
+}
+
+
+/* Task additional details popup */
+
+.task-additional-details-popup {
+
+}
+
+#datetimeshowcase {
+	width: 500px;
+	height: 200px;
+	background: #fff;
+	margin-left: 40px;
+}
+
+
+/* =============================== */
+  /* RESPONSIVE CODE BELOW */
+/* =============================== */
 
 @media only screen and (min-width: 641px) {
 	.new-task-form-popup {

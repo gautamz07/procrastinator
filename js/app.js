@@ -6,6 +6,9 @@ $(function() {
 
     TODO::
     	===============================================================================================
+        - ADD a details task card just like on just reminder.
+        - On click of the details card, Task details should show up
+        - refactor code to have every() and see why forEach is not returning variable.
         - Use speed recognition for the "task" input feild
            - https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API 
         - Add a "Edit Task" and "Delete Task" Button.
@@ -49,7 +52,6 @@ $(function() {
             	hours: hoursDiff,
             	mins: minsDiff  
             }
-
     }
 
     function convertHoursToSecounds(val) {
@@ -164,19 +166,33 @@ $(function() {
         var date_val = $('#datetimepicker').val(),
         task = $('#task').val(),
         objTaskDetails = {
-            task : task 
+            task : task ,
+            task_Id : generateTaskId()
         }
 
         // console.log(task);
         // dvar date = execOnlyCaptureGroups(/^(\d+)\/(\d+)\/(\d+)/g.exec(date_val)),
         var date = execOnlyCaptureGroups(/^(\d+)\/(\d+)\/(\d+) (\d+)\:(\d+)/g.exec(date_val)),
+        only_Date = date_val.match(/^(\d+)\/(\d+)\/(\d+)/g)[0];
+        only_Time = date_val.match(/(\d+)\:(\d+)/g)[0];
         timeDiffObj = differenceCurrentDateTime(date),
         diffInSecounds = (convertHoursToSecounds(timeDiffObj.hours) || 0) + (convertMinutesToSecounds(timeDiffObj.mins) || 0);
+        
+
+
+        // console.log(only_Time);
+        // datetimeshowcase
         // time = date_val.match(/\d+\:\d+/g);
         // console.log(timeDiffObj);
         // console.log(diffInSecounds);
         objTaskDetails.notifyIn = diffInSecounds;
         objTaskDetails.hoursMins = timeDiffObj
+        objTaskDetails.dateTime = {
+            date : only_Date,
+            time : only_Time
+        }
+
+        console.log(objTaskDetails);
         
 
         remindMeMain(objTaskDetails);
@@ -192,6 +208,13 @@ $(function() {
     });
 
     var localStroge_Procrastinator_tasks = $.parseJSON(localStorage.getItem('localStroge_Procrastinator_tasks')) || [];
+
+    function generateTaskId() {
+        var localStroge_Procrastinator_tasks = $.parseJSON(localStorage.getItem('localStroge_Procrastinator_tasks')) || [];
+        return (!localStroge_Procrastinator_tasks.length) ? 1 : (localStroge_Procrastinator_tasks.length + 1); 
+    }
+
+    // console.log(generateTaskId());
 
     function addToLocalStorage(obj) {
         localStroge_Procrastinator_tasks.push(obj);
@@ -224,7 +247,7 @@ $(function() {
         // consol
         if (obj) {
             $('.task-list-wrapper').addClass('visible');    
-            $('<li><span class="task-detail" title="'+  obj.task +'">'+ obj.task +'</span><span>'+ ((Math.floor(obj.hoursMins.hours / 24) > 0) ? Math.floor(obj.hoursMins.hours / 24) + 'd ' : '') + (obj.hoursMins.hours % 24) +':'+ obj.hoursMins.mins +'</span></li>').appendTo('.task-list-wrapper > .task-list');
+            $('<li><span class="task-detail" title="'+  obj.task +'">'+ obj.task +'</span><a href="" data-task-id="'+ obj.task_Id +'" data-remodal-target="task-additional-details-popup">Task Details</a></li>').appendTo('.task-list-wrapper > .task-list');
         }
     }
 
@@ -241,6 +264,51 @@ $(function() {
     //         });
     //     }
     // }
+
+    /* =============================== */
+      /* WHEN CLICKED ON TASK DETAILS */
+    /* =============================== */
+
+    $(document).on('click' ,  '.task-list > li > a'  , function(){
+
+
+        var localStroge_Procrastinator_tasks = $.parseJSON(localStorage.getItem('localStroge_Procrastinator_tasks')) || [],
+        task_Id = parseInt($(this).data('task-id'));
+        
+        // console.log(task_Id);
+
+
+        storeRelevantObj = localStroge_Procrastinator_tasks.find(function(e, i){
+            // console.log(e);
+            if (e.task_Id === task_Id) {
+                /*var dateTime = e.dateTime.date + ' ' + e.dateTime.time + ':00';
+                console.log(dateTime);
+                setTimeout(function(){
+                    $('.task-additional-details-popup #datetimeshowcase').data('date', dateTime).TimeCircles({
+                        time : {
+                            Days: { color : '#292E46'  },
+                            Hours: { color : '#CF218C'  },
+                            Minutes: { color : '#FFC803'  },  
+                            Seconds: { color : '#93EB49'  }  
+                        }, 
+                        circle_bg_color: "#ccc"
+                        }).start()
+                },500);*/
+                return e;
+            }
+        });
+
+        console.log(storeRelevantObj);
+
+        // console.log(storeRelevantObj);
+        // $('.task-additional-details-popup #datetimeshowcase');
+        // var datetime = only_Date + ' ' + only_Time + ':00';
+        // $("#datetimeshowcase").data('date', datetime).TimeCircles().start();
+       
+        return false;
+
+    });
+
 
     function sendNotification(msg) {
         if (window.Notification && Notification.permission !== "denied") {
